@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MPI IPAS Kelas V - Apa dan untuk Apa Magnet?</title>
+<style>
+:root{--navy:#15345b;--blue:#2878c7;--sky:#eaf5ff;--gold:#ffc857;--green:#21865b;--ink:#203047;--paper:#fff;--line:#d9e5f1}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--ink);background:linear-gradient(135deg,#e8f4ff,#f9fcff)}
+header{background:linear-gradient(120deg,#15345b,#2878c7);color:white;padding:22px 5vw 28px}
+header .school{font-size:.9rem;opacity:.9;font-weight:700;letter-spacing:.4px}
+header h1{margin:10px 0 5px;font-size:clamp(1.7rem,4vw,2.8rem)}
+header p{margin:0;max-width:760px;line-height:1.5}
+.progress-wrap{height:8px;background:#ffffff45;margin-top:18px;border-radius:99px;overflow:hidden}.progress{height:100%;width:0;background:var(--gold);transition:width .3s}
+main{max-width:1100px;margin:22px auto;padding:0 16px 40px}
+.nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.nav button,.btn{border:0;border-radius:12px;padding:11px 15px;font-weight:700;cursor:pointer;background:white;color:var(--navy);box-shadow:0 2px 8px #16365b12}
+.nav button.active,.btn.primary{background:var(--blue);color:white}.btn.gold{background:var(--gold);color:#4c3710}
+.panel{display:none;background:white;border:1px solid var(--line);border-radius:20px;padding:clamp(16px,3vw,28px);box-shadow:0 8px 24px #18395b0c}.panel.active{display:block}
+h2{color:var(--navy);margin-top:0}h3{color:#235c93}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px}
+.card{border:1px solid var(--line);border-radius:16px;padding:16px;background:#fbfdff}
+.callout{background:var(--sky);border-left:5px solid var(--blue);padding:13px 16px;border-radius:10px;margin:14px 0}
+.mag-art{display:flex;align-items:center;justify-content:center;gap:0;margin:20px auto;max-width:390px}
+.pole{height:72px;width:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:900;font-size:1.25rem;box-shadow:0 5px 10px #0002}
+.pole.n{background:#e34f52;border-radius:12px 0 0 12px}.pole.s{background:#2878c7;border-radius:0 12px 12px 0}
+.demo{background:#f4f9ff;border-radius:16px;padding:18px;margin-top:14px}
+.items{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+.item{padding:10px 13px;border:2px solid #c8d7e7;background:white;border-radius:12px;cursor:pointer;font-weight:700}
+.item.selected{border-color:var(--blue);background:#e3f2ff}
+.result{min-height:50px;background:white;border-radius:12px;padding:12px;margin-top:12px;border:1px dashed #b9cddd}
+.question{border:1px solid var(--line);padding:15px;border-radius:14px;margin:12px 0}
+.question label{display:block;padding:8px;border-radius:8px;cursor:pointer}.question label:hover{background:#f0f7ff}
+.feedback{font-weight:700;margin-top:8px}.correct{color:var(--green)}.wrong{color:#bd3434}
+footer{text-align:center;color:#64758a;padding:20px;font-size:.85rem}
+.small{font-size:.9rem;color:#5b6d82}.score{font-size:1.15rem;font-weight:800;color:var(--navy)}
+@media(max-width:600px){header{padding:20px 16px}.nav button{flex:1}.mag-art .pole{height:58px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="school">MEDIA PEMBELAJARAN INTERAKTIF • IPAS • KELAS V / FASE C</div>
+  <h1>Apa dan untuk Apa Magnet?</h1>
+  <p>Mari mengenal magnet, mengamati gaya tariknya, dan menemukan manfaat magnet dalam kehidupan sehari-hari.</p>
+  <div class="progress-wrap" aria-label="Kemajuan belajar"><div class="progress" id="progress"></div></div>
+</header>
+<main>
+  <div class="nav" role="tablist">
+    <button class="active" data-tab="start">🏁 Mulai</button>
+    <button data-tab="learn">📘 Belajar</button>
+    <button data-tab="lab">🧲 Eksplorasi</button>
+    <button data-tab="use">🏡 Manfaat</button>
+    <button data-tab="quiz">✍️ Kuis</button>
+  </div>
+
+  <section class="panel active" id="start">
+    <div class="grid">
+      <div>
+        <h2>Halo, Penjelajah IPAS!</h2>
+        <p>Di sekitar kita ada benda yang dapat menarik benda tertentu tanpa harus menyentuhnya. Benda itu disebut <b>magnet</b>.</p>
+        <div class="callout"><b>Tujuan belajar</b><br>Setelah belajar, kamu dapat menjelaskan sifat magnet, membedakan benda magnetis dan nonmagnetis, serta menyebutkan kegunaan magnet.</div>
+        <button class="btn primary" onclick="go('learn')">Ayo belajar →</button>
+      </div>
+      <div class="card">
+        <h3>🧲 Tantangan awal</h3>
+        <p>Menurutmu, benda mana yang bisa ditarik magnet?</p>
+        <div class="items">
+          <button class="item" onclick="startGuess(this,'klip kertas')">Klip kertas</button>
+          <button class="item" onclick="startGuess(this,'penghapus')">Penghapus</button>
+          <button class="item" onclick="startGuess(this,'paku besi')">Paku besi</button>
+        </div>
+        <div class="result" id="guessResult">Pilih salah satu benda untuk melihat jawaban.</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel" id="learn">
+    <h2>1. Apa itu magnet?</h2>
+    <p><b>Magnet</b> adalah benda yang dapat menarik bahan tertentu, terutama besi, baja, nikel, dan kobalt. Magnet memiliki dua kutub, yaitu kutub utara (U/N) dan kutub selatan (S).</p>
+    <div class="mag-art" aria-label="Ilustrasi magnet dengan kutub utara dan selatan"><div class="pole n">U / N</div><div class="pole s">S</div></div>
+    <div class="grid">
+      <div class="card"><h3>🔴 Kutub Utara</h3><p>Salah satu ujung magnet. Biasanya ditandai huruf N atau U.</p></div>
+      <div class="card"><h3>🔵 Kutub Selatan</h3><p>Ujung magnet yang lain. Biasanya ditandai huruf S.</p></div>
+      <div class="card"><h3>✨ Gaya magnet</h3><p>Magnet dapat menarik benda tertentu dari jarak dekat tanpa menyentuhnya.</p></div>
+    </div>
+    <h3>Sifat kutub magnet</h3>
+    <div class="grid">
+      <div class="card"><b>Kutub berbeda</b><p>Utara dan selatan saling <b>menarik</b>.</p><div style="font-size:2rem;text-align:center">N → ← S</div></div>
+      <div class="card"><b>Kutub sama</b><p>Utara dengan utara, atau selatan dengan selatan, saling <b>menolak</b>.</p><div style="font-size:2rem;text-align:center">N ← → N</div></div>
+    </div>
+    <div class="callout">Ingat: magnet tidak menarik semua benda. Benda dari plastik, kertas, kayu, dan karet umumnya tidak ditarik magnet.</div>
+    <button class="btn primary" onclick="go('lab')">Lanjut eksplorasi →</button>
+  </section>
+
+  <section class="panel" id="lab">
+    <h2>2. Laboratorium Magnet Mini</h2>
+    <p>Pilih benda, lalu tekan tombol <b>Uji dengan magnet</b>. Amati apakah benda tertarik magnet.</p>
+    <div class="demo">
+      <div class="items" id="objects">
+        <button class="item" data-kind="yes" data-name="Klip kertas">📎 Klip kertas</button>
+        <button class="item" data-kind="yes" data-name="Paku besi">🔩 Paku besi</button>
+        <button class="item" data-kind="no" data-name="Koin aluminium">🪙 Koin aluminium</button>
+        <button class="item" data-kind="no" data-name="Penghapus">🧽 Penghapus</button>
+        <button class="item" data-kind="no" data-name="Pensil kayu">✏️ Pensil kayu</button>
+        <button class="item" data-kind="no" data-name="Sedotan plastik">🥤 Sedotan plastik</button>
+      </div>
+      <button class="btn primary" id="testBtn">🧲 Uji dengan magnet</button>
+      <button class="btn" id="resetLab">Ulangi</button>
+      <div class="result" id="labResult">Belum ada benda yang diuji. Pilih satu benda terlebih dahulu.</div>
+    </div>
+    <div class="callout"><b>Kesimpulan:</b> benda yang mengandung bahan magnetis seperti besi tertentu dapat tertarik. Tidak semua logam tertarik magnet; contohnya aluminium dan tembaga tidak tertarik oleh magnet biasa.</div>
+    <button class="btn primary" onclick="go('use')">Lihat manfaat magnet →</button>
+  </section>
+
+  <section class="panel" id="use">
+    <h2>3. Untuk apa magnet?</h2>
+    <p>Magnet digunakan dalam banyak alat yang membantu manusia.</p>
+    <div class="grid">
+      <div class="card"><h3>🧭 Kompas</h3><p>Jarum magnet membantu menunjukkan arah utara dan selatan.</p></div>
+      <div class="card"><h3>🚪 Pintu kulkas</h3><p>Magnet pada karet pintu membantu pintu kulkas menutup rapat.</p></div>
+      <div class="card"><h3>🔊 Speaker</h3><p>Magnet bekerja bersama komponen lain untuk menghasilkan suara.</p></div>
+      <div class="card"><h3>♻️ Pemilah besi</h3><p>Magnet besar dapat membantu memisahkan benda berbahan besi dari campuran sampah.</p></div>
+      <div class="card"><h3>🧰 Alat pengangkat</h3><p>Elektromagnet pada alat tertentu mengangkat dan memindahkan besi atau baja.</p></div>
+      <div class="card"><h3>🧲 Penutup / pengait</h3><p>Magnet kecil digunakan pada kotak, papan, atau pengait tertentu.</p></div>
+    </div>
+    <div class="callout"><b>Hubungkan dengan kehidupanmu:</b> coba temukan dua benda di rumah atau sekolah yang menggunakan magnet. Jangan menguji magnet dekat perangkat elektronik atau benda yang mudah rusak.</div>
+    <button class="btn primary" onclick="go('quiz')">Mulai kuis →</button>
+  </section>
+
+  <section class="panel" id="quiz">
+    <h2>4. Kuis Pemahaman</h2>
+    <p>Pilih satu jawaban untuk setiap soal, lalu tekan <b>Periksa jawaban</b>.</p>
+    <form id="quizForm">
+      <div class="question"><b>1. Magnet dapat menarik benda yang terbuat dari …</b>
+        <label><input type="radio" name="q1" value="a"> A. Kertas</label><label><input type="radio" name="q1" value="b"> B. Besi</label><label><input type="radio" name="q1" value="c"> C. Karet</label></div>
+      <div class="question"><b>2. Magnet memiliki …</b>
+        <label><input type="radio" name="q2" value="a"> A. Satu kutub</label><label><input type="radio" name="q2" value="b"> B. Dua kutub</label><label><input type="radio" name="q2" value="c"> C. Empat kutub</label></div>
+      <div class="question"><b>3. Jika kutub utara didekatkan dengan kutub utara, keduanya akan …</b>
+        <label><input type="radio" name="q3" value="a"> A. Saling menolak</label><label><input type="radio" name="q3" value="b"> B. Saling menarik</label><label><input type="radio" name="q3" value="c"> C. Meleleh</label></div>
+      <div class="question"><b>4. Alat yang menggunakan magnet untuk menunjukkan arah adalah …</b>
+        <label><input type="radio" name="q4" value="a"> A. Penggaris</label><label><input type="radio" name="q4" value="b"> B. Kompas</label><label><input type="radio" name="q4" value="c"> C. Gelas</label></div>
+      <div class="question"><b>5. Benda yang umumnya tidak ditarik magnet adalah …</b>
+        <label><input type="radio" name="q5" value="a"> A. Paku besi</label><label><input type="radio" name="q5" value="b"> B. Klip besi</label><label><input type="radio" name="q5" value="c"> C. Pensil kayu</label></div>
+      <button class="btn primary" type="button" onclick="checkQuiz()">Periksa jawaban</button>
+      <button class="btn" type="button" onclick="resetQuiz()">Coba lagi</button>
+    </form>
+    <div class="result" id="quizResult" aria-live="polite">Skor akan muncul setelah jawaban diperiksa.</div>
+    <div class="callout"><b>Refleksi:</b> Apa satu hal baru yang kamu pelajari tentang magnet? Ceritakan kepada teman atau guru.</div>
+  </section>
+</main>
+<footer>MPI IPAS Kelas V • SD Negeri 5 Kolaka Utara • Kurikulum Merdeka</footer>
+<script>
+const tabs=[...document.querySelectorAll('.nav button')],panels=[...document.querySelectorAll('.panel')];let visited=new Set(['start']);
+function go(id){tabs.forEach(b=>b.classList.toggle('active',b.dataset.tab===id));panels.forEach(p=>p.classList.toggle('active',p.id===id));visited.add(id);document.getElementById('progress').style.width=(visited.size/5*100)+'%';window.scrollTo({top:0,behavior:'smooth'});}
+tabs.forEach(b=>b.addEventListener('click',()=>go(b.dataset.tab)));
+function startGuess(btn,name){document.querySelectorAll('#start .item').forEach(x=>x.classList.remove('selected'));btn.classList.add('selected');let yes=['klip kertas','paku besi'].includes(name);document.getElementById('guessResult').innerHTML=yes?'✅ Tepat! Benda tersebut mengandung bahan yang dapat ditarik magnet.':'💡 Benda ini umumnya tidak tertarik magnet. Coba pilih klip kertas atau paku besi!';}
+let selected=null;const objBtns=[...document.querySelectorAll('#objects .item')];
+objBtns.forEach(b=>b.addEventListener('click',()=>{objBtns.forEach(x=>x.classList.remove('selected'));b.classList.add('selected');selected=b;document.getElementById('labResult').textContent='Kamu memilih: '+b.dataset.name+'. Tekan “Uji dengan magnet”.';}));
+document.getElementById('testBtn').addEventListener('click',()=>{if(!selected){document.getElementById('labResult').textContent='Pilih benda terlebih dahulu.';return;}let yes=selected.dataset.kind==='yes';document.getElementById('labResult').innerHTML=yes?'🧲 <b>TERTARIK!</b> '+selected.dataset.name+' dapat ditarik magnet.':'🚫 <b>TIDAK TERTARIK.</b> '+selected.dataset.name+' tidak tertarik magnet biasa.';});
+document.getElementById('resetLab').addEventListener('click',()=>{selected=null;objBtns.forEach(x=>x.classList.remove('selected'));document.getElementById('labResult').textContent='Belum ada benda yang diuji. Pilih satu benda terlebih dahulu.';});
+function checkQuiz(){let answers={q1:'b',q2:'b',q3:'a',q4:'b',q5:'c'},score=0,answered=0;for(let q in answers){let el=document.querySelector('input[name="'+q+'"]:checked');if(el){answered++;if(el.value===answers[q])score++;}}let out=document.getElementById('quizResult');if(answered<5){out.innerHTML='⚠️ Kamu baru menjawab '+answered+' dari 5 soal. Lengkapi semua jawaban dulu.';return;}let msg=score===5?'Hebat! Semua jawaban benar.':score>=3?'Bagus! Terus berlatih agar semakin paham.':'Ayo pelajari kembali materi, lalu coba lagi.';out.innerHTML='<div class="score">Skor: '+score+'/5 ('+(score*20)+'%)</div>'+msg;visited.add('quiz');document.getElementById('progress').style.width=(visited.size/5*100)+'%';}
+function resetQuiz(){document.getElementById('quizForm').reset();document.getElementById('quizResult').textContent='Kuis diulang. Pilih jawabanmu.';}
+</script>
+</body>
+</html>
